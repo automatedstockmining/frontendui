@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/agnt.py/static/css/main.4ec21d9b.css",
+    "main.js": "/agnt.py/static/js/main.44fb9c45.js",
+    "static/media/high_res_logo.png": "/agnt.py/static/media/high_res_logo.6038c9db1e036fa91b5a.png",
+    "static/media/bot.ico": "/agnt.py/static/media/bot.6f18a81c2474a6b2f7d5.ico",
+    "index.html": "/agnt.py/index.html",
+    "main.4ec21d9b.css.map": "/agnt.py/static/css/main.4ec21d9b.css.map",
+    "main.44fb9c45.js.map": "/agnt.py/static/js/main.44fb9c45.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4ec21d9b.css",
+    "static/js/main.44fb9c45.js"
+  ]
+}
