@@ -1,12 +1,11 @@
 import React from 'react';
-import {MdAccountCircle, MdComputer, MdLaptop} from 'react-icons/md';
+import { MdAccountCircle } from 'react-icons/md';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import remarkGfm from 'remark-gfm';
 import moment from 'moment';
 import Image from './Image';
-import person from '../assets/person.png';
 import logo from "../assets/high_res_logo.png";
 
 /**
@@ -16,6 +15,32 @@ import logo from "../assets/high_res_logo.png";
  */
 const ChatMessage = (props) => {
   const { id, createdAt, text, ai = false, selected } = props.message;
+
+  // Inline table styles
+  const tableStyles = {
+    width: '100%',
+    borderCollapse: 'collapse',
+    margin: '16px 0',
+    fontSize: '14px',
+    color: '#333',
+  };
+
+  const cellStyles = {
+    border: '2px solid #333', // Strong solid border
+    padding: '10px',
+    textAlign: 'left',
+    backgroundColor: '#000',
+    color: '#fff', // White text
+  };
+  
+  const headerStyles = {
+    border: '2px solid #333', // Solid border
+    padding: '10px',
+    textAlign: 'left',
+    backgroundColor: '#000', // Black background
+    color: '#fff',           // White text
+    fontWeight: 'bold',
+  };
 
   return (
     <div
@@ -27,27 +52,44 @@ const ChatMessage = (props) => {
         <div className='message__wrapper'>
           <ReactMarkdown
             className={`message__markdown ${ai ? 'text-left' : 'text-right'}`}
-            children={text}
-            remarkPlugins={[[remarkGfm, { singleTilde: false }]]}
+            remarkPlugins={[remarkGfm]}
             components={{
               code({ node, inline, className, children, ...props }) {
                 const match = /language-(\w+)/.exec(className || 'language-js');
                 return !inline && match ? (
                   <SyntaxHighlighter
-                    children={String(children).replace(/\n$/, '')}
                     style={atomDark}
                     language={match[1]}
                     PreTag='div'
                     {...props}
-                  />
+                  >
+                    {String(children).replace(/\n$/, '')}
+                  </SyntaxHighlighter>
                 ) : (
                   <code className={className} {...props}>
-                    {children}{' '}
+                    {children}
                   </code>
                 );
               },
+              table: ({ node, ...props }) => (
+                <table style={tableStyles} {...props}>
+                  {props.children}
+                </table>
+              ),
+              th: ({ node, ...props }) => (
+                <th style={headerStyles} {...props}>
+                  {props.children}
+                </th>
+              ),
+              td: ({ node, ...props }) => (
+                <td style={cellStyles} {...props}>
+                  {props.children}
+                </td>
+              ),
             }}
-          />
+          >
+            {text}
+          </ReactMarkdown>
 
           <div
             className={`${ai ? 'text-left' : 'text-right'} message__createdAt`}>
@@ -56,17 +98,17 @@ const ChatMessage = (props) => {
         </div>
       )}
 
-        {ai ? (
-            <div className='message__pic__bot'>
-                <span className='w-16 h-16'>
-                    <img src={logo} alt='' />
-                </span>
-            </div>
-        ) : (
-            <div className='message__pic'>
-                <MdAccountCircle />
-            </div>
-        )}
+      {ai ? (
+        <div className='message__pic__bot'>
+          <span className='w-16 h-16'>
+            <img src={logo} alt='' />
+          </span>
+        </div>
+      ) : (
+        <div className='message__pic'>
+          <MdAccountCircle />
+        </div>
+      )}
     </div>
   );
 };

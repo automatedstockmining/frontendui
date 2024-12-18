@@ -4,6 +4,7 @@ import ChatView from './components/ChatView';
 import { useEffect, useState } from 'react';
 import Modal from './components/Modal';
 import Setting from './components/Setting';
+import Cookies from 'js-cookie';
 
 const App = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -13,6 +14,8 @@ const App = () => {
     if (!apiKey) {
       setModalOpen(true);
     }
+
+    Cookies.remove("memory_id");
   }, []);
   return (
     <ChatContextProvider>

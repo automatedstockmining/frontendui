@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Cookies from 'js-cookie';
 
 /**
  * A custom hook for managing the conversation between the user and the AI.
@@ -9,7 +10,7 @@ const useMessageCollection = () => {
   const initialMsg = {
     id: 1,
     createdAt: Date.now(),
-    text: '**Hello!** *How can I help you today?*',
+    text: "**Hello! I'm your virtual stock analyst. How can i help you Today?** ",
     ai: true
   }
   const [messages, setMessages] = useState([initialMsg]);
@@ -23,7 +24,10 @@ const useMessageCollection = () => {
     setMessages((prev) => [...prev, message]);
   }
 
-  const clearMessages = () => setMessages([initialMsg])
+  const clearMessages = () => {
+    Cookies.remove("memory_id");
+    setMessages([initialMsg]);
+  }
 
   return [messages, addMessage, clearMessages];
 }
