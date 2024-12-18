@@ -15,7 +15,7 @@ const App = () => {
       setModalOpen(true);
     }
 
-    Cookies.remove("memory_id");
+    Cookies.remove("memory_id", {secure: true, sameSite: "none"});
   }, []);
   return (
     <ChatContextProvider>

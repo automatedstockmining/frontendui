@@ -25,7 +25,7 @@ const useMessageCollection = () => {
   }
 
   const clearMessages = () => {
-    Cookies.remove("memory_id");
+    Cookies.remove("memory_id", {secure: true, sameSite: "none"});
     setMessages([initialMsg]);
   }
 
