@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Cookies from 'js-cookie';
+import axios from "axios";
 
 /**
  * A custom hook for managing the conversation between the user and the AI.
@@ -25,7 +25,7 @@ const useMessageCollection = () => {
   }
 
   const clearMessages = () => {
-    Cookies.remove("memory_id", {secure: true, sameSite: "none"});
+    axios.post("http://localhost:8000/clear", null, {withCredentials: true});
     setMessages([initialMsg]);
   }
 

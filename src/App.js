@@ -4,7 +4,7 @@ import ChatView from './components/ChatView';
 import { useEffect, useState } from 'react';
 import Modal from './components/Modal';
 import Setting from './components/Setting';
-import Cookies from 'js-cookie';
+import axios from "axios";
 
 const App = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -15,7 +15,7 @@ const App = () => {
       setModalOpen(true);
     }
 
-    Cookies.remove("memory_id", {secure: true, sameSite: "none"});
+    axios.post("http://localhost:8000/clear", null, {withCredentials: true});
   }, []);
   return (
     <ChatContextProvider>
